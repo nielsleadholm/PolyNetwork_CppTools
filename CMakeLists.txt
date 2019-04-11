@@ -1,5 +1,3 @@
-%%writefile CMakeLists.txt
-
 # Necessary to set CMake minimum version (3.1 needed for Spike):
 cmake_minimum_required(VERSION 3.1 FATAL_ERROR)
 
