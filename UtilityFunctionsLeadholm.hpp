@@ -27,13 +27,14 @@ void connect_from_python(
   connectivity_data.open(filename.c_str(), ios::binary);
 
   if (connectivity_data.is_open()){
-    std::cout << "\nConnectivity data file opened, extracting synapse IDs, weights and delays...\n";
+    std::cout << "Connectivity data file opened, extracting synapse IDs, weights and delays...\n";
 
     // Find the number of synapses
     connectivity_data.seekg(0, std::ios::end);
     int num_synapses = (connectivity_data.tellg() / sizeof(float))/4; //tellg will return the total number of bytes,
     // indicated by the final read position in the file, which was obtained by seekg and ::end in the line above, and corrected for the number
     // of data arrays (pre-IDs, post-IDs, weights, and delays)
+
 
     // Define the size of the synapse-data vectors
     input_IDs_vec_float.resize(num_synapses); // Resize the previously initialized vector, now that the number of elements is known
@@ -55,7 +56,7 @@ void connect_from_python(
     connectivity_data.read(reinterpret_cast<char*>(&synapse_weights_vec[0]), num_synapses*sizeof(float)); 
 
     // Extract synaptic delays
-    connectivity_data.read(reinterpret_cast<char*>(&synapse_delays_vec[0]), num_synapses*sizeof(float)); 
+    connectivity_data.read(reinterpret_cast<char*>(&synapse_delays_vec[0]), num_synapses*sizeof(float));
 
     // Assign extracted data to the synapse object
     SYN_PARAMS->pairwise_connect_presynaptic = input_IDs_vec_int;
@@ -65,7 +66,7 @@ void connect_from_python(
 
     // Add the newly defined synapses to the model object
     Model->AddSynapseGroup(layer1, layer2, SYN_PARAMS);
-    std::cout << "\nConnectivity data file read.\n";
+    std::cout << "Connectivity data file read.\n";
     
   }
   
